@@ -97,7 +97,7 @@ get_anova_table(BS_anovatest_Spr2020)
 
 ## Screenshots
 
-![NAs](C:\Users\kevin\OneDrive\Pictures\NAs)
+![NAs](./NAs.png)
 ![Distribution](C:\Users\kevin\OneDrive\Pictures\distribution)
 ![Paired T-Test](C:\Users\kevin\OneDrive\Pictures\Paired T-Test)
 ![countplot](C:\Users\kevin\OneDrive\Pictures\countplot)
