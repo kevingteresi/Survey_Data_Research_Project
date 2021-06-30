@@ -103,7 +103,7 @@ get_anova_table(BS_anovatest_Spr2020)
 ![Distribution](./distribution.png)
 - Example of distribution amongst one of the three scales of empathy means.  All of the distributions ended up mostly normal, and we were able to run inferential statistics from there.
 
-![Paired T-Test](./Paired T-Test.png)
+![Paired T-Test](./PairedT-Test.png)
 - Example Paired T-Test amongst one of the three scales of empathy (check documents for full definitions).  P-Value below .05 means that there was a true difference in means not equal to zero (for the Spring 2020 experimental group).  Their empathy level, in this category, had gone up by a mean of 0.3316 (out of 7).
 
 ![countplot](./countplot.png)
