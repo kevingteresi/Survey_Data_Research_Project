@@ -1,0 +1,477 @@
+---
+title: "Empathy Research Project - Descriptive / Inferential Statistics Experimental Pretest Spring 2020"
+Author: "Kevin Teresi and Kenneth Lefin"
+Date: "Spring Semester, 2021"
+output: html_notebook
+---
+
+
+
+
+
+```{r}
+#Count functions to find counts for various variables, including Gender (9.05), Major (9.02), Immigration Status (9.11), and Political Party (9.22)
+
+#count for gender.  1 = Female, 2 = Male, 3 = Non-Binary, 4 = Other
+count(Spr2020_Exp_Pretest_6, vars = GD_Gender)
+```
+
+
+```{r}
+#count for Major. Check documents for variable number matching the category
+count(Spr2020_Exp_Pretest_6, vars = GD_Major)
+```
+
+```{r}
+#count for Country born in. 1 for USA, 2 for Other.  Represents immigration status.
+count(Spr2020_Exp_Pretest_6, vars = GD_Country)
+```
+
+```{r}
+#count for Country born in. 1 for USA, 2 for Other.  Represents immigration status.
+count(Spr2020_Exp_Pretest_6, vars = GD_PoliParty)
+```
+
+
+
+
+```{r}
+
+BS_Exppre_Spr2020 <- subset(Spr2020_Exp_Pretest_6, select = BS_Sensitivity:BS_BodyLanguage)
+
+```
+
+```{r}
+#only run once.  every time you run this code, it adds the new total to the current total.  If you run it too many times, run code above 
+BS_Exppre_Spr2020$empathy_total <- rowSums(BS_Exppre_Spr2020)
+BS_Exppre_Spr2020
+```
+
+```{r}
+#change the number we are dividing by based on the number of columns before the 'total' column (if applicable)
+BS_Exppre_Spr2020$empathy_mean <- round((BS_Exppre_Spr2020$empathy_total / 11), digits = 2)
+BS_Exppre_Spr2020
+```
+
+
+
+```{r}
+#make sure you change the title of the plot, on top of the different variables
+density_emp_mean_Exppre_Spr2020 <- density(BS_Exppre_Spr2020$empathy_mean)
+plot(density_emp_mean_Exppre_Spr2020, main="Kernel Density of Empathy Means")
+polygon(density_emp_mean_Exppre_Spr2020, col="red", border="blue")
+```
+
+```{r}
+# MAKE SURE you change the dividing number by the number of rows in this data
+total_mean_Exppre_Spr2020_empathy <- sum(BS_Exppre_Spr2020$empathy_mean) / 58
+total_mean_Exppre_Spr2020_empathy
+sd_Exppre_Spr2020_empathy_mean <- sd(BS_Exppre_Spr2020$empathy_mean)
+sd_Exppre_Spr2020_empathy_mean
+```
+
+
+
+```{r}
+EB_Exppre_Spr2020 <- subset(Spr2020_Exp_Pretest_6, select = EB_ThreatenYou:EB_Gestures)
+```
+
+```{r}
+EB_Exppre_Spr2020$experienced_bias_total <- rowSums(EB_Exppre_Spr2020)
+EB_Exppre_Spr2020
+```
+```{r}
+#number dividing changes by how many columns
+EB_Exppre_Spr2020$experienced_bias_mean <- round((EB_Exppre_Spr2020$experienced_bias_total / 12), digits = 2)
+EB_Exppre_Spr2020
+```
+
+
+
+```{r}
+density_bias_mean_Exppre_Spr2020 <- density(EB_Exppre_Spr2020$experienced_bias_mean)
+plot(density_bias_mean_Exppre_Spr2020, main="Kernel Density of Bias-Experience Means")
+polygon(density_bias_mean_Exppre_Spr2020, col="red", border="blue")
+```
+
+```{r}
+#number dividing change by how many rows
+total_mean_Exppre_Spr2020_bias <- sum(EB_Exppre_Spr2020$experienced_bias_mean) / 58
+total_mean_Exppre_Spr2020_bias
+sd_Exppre_Spr2020_bias_mean <- sd(EB_Exppre_Spr2020$experienced_bias_mean)
+sd_Exppre_Spr2020_bias_mean
+```
+
+```{r}
+AU_Exppre_Spr2020 <- subset(Spr2020_Exp_Pretest_6, select = AU_WhateverTheyWant:AU_10_NonVerbal)
+```
+
+```{r}
+AU_Exppre_Spr2020$busiol_total <- rowSums(AU_Exppre_Spr2020)
+AU_Exppre_Spr2020
+```
+```{r}
+AU_Exppre_Spr2020$busiol_mean <- round((AU_Exppre_Spr2020$busiol_total / 15), digits = 2)
+AU_Exppre_Spr2020
+```
+
+
+
+```{r}
+density_busiol_mean_Exppre_Spr2020 <- density(AU_Exppre_Spr2020$busiol_mean)
+plot(density_busiol_mean_Exppre_Spr2020, main="Kernel Density of Busiol Means")
+polygon(density_busiol_mean_Exppre_Spr2020, col="red", border="blue")
+```
+
+```{r}
+#number dividing changes by how many rows
+total_mean_Exppre_Spr2020_busiol <- sum(AU_Exppre_Spr2020$busiol_mean) / 58
+new_total_mean_Exppre_Spr2020_busiol <- 7 - total_mean_Exppre_Spr2020_busiol
+new_total_mean_Exppre_Spr2020_busiol
+sd_Exppre_Spr2020_busiol_mean <- sd(AU_Exppre_Spr2020$busiol_mean)
+sd_Exppre_Spr2020_busiol_mean
+```
+
+
+```{r}
+DV_Exppre_Spr2020 <- subset(Spr2020_Exp_Pretest_6, select = DV_JoinOrg:DV_Limited)
+```
+
+
+```{r}
+DV_Exppre_Spr2020$diversity_total <- rowSums(DV_Exppre_Spr2020)
+DV_Exppre_Spr2020
+```
+```{r}
+#number dividing changes for how many columns
+DV_Exppre_Spr2020$diversity_mean <- round((DV_Exppre_Spr2020$diversity_total / 15), digits = 2)
+DV_Exppre_Spr2020
+```
+
+
+
+```{r}
+density_diversity_mean_Exppre_Spr2020 <- density(DV_Exppre_Spr2020$diversity_mean)
+plot(density_diversity_mean_Exppre_Spr2020, main="Kernel Density of Diversity Means")
+polygon(density_diversity_mean_Exppre_Spr2020, col="red", border="blue")
+```
+
+```{r}
+#dont forget to divide by the current number of rows
+new_total_mean_Exppre_Spr2020_diversity <- sum(DV_Exppre_Spr2020$diversity_mean) / 58
+new_total_mean_Exppre_Spr2020_diversity
+sd_Exppre_Spr2020_diversity_mean <- sd(DV_Exppre_Spr2020$diversity_mean)
+sd_Exppre_Spr2020_diversity_mean
+```
+
+```{r}
+#ttest comparing the means of pre and post: empathy
+empathy_Exp_Spr2020_ttest <-t.test(BS_Exppost_Spr2020$empathy_mean, BS_Exppre_Spr2020$empathy_mean, paired=TRUE)
+empathy_Exp_Spr2020_ttest
+```
+
+```{r}
+#ttest comparing the means of pre and post: bias experience
+bias_Exp_Spr2020_ttest <-t.test(EB_Exppost_Spr2020$experienced_bias_mean, EB_Exppre_Spr2020$experienced_bias_mean, paired=TRUE)
+bias_Exp_Spr2020_ttest
+```
+
+```{r}
+#ttest comparing the means of pre and post: busiol
+busiol_Exp_Spr2020_ttest <-t.test(AU_Exppost_Spr2020$busiol_mean, AU_Exppre_Spr2020$busiol_mean, paired=TRUE)
+busiol_Exp_Spr2020_ttest
+```
+
+```{r}
+#ttest comparing the means of pre and post: diversity
+diversity_Exp_Spr2020_ttest <-t.test(DV_Exppost_Spr2020$diversity_mean, DV_Exppre_Spr2020$diversity_mean, paired=TRUE)
+diversity_Exp_Spr2020_ttest
+```
+
+
+
+
+#5/10/21
+
+```{r}
+busiol_exppre_Spr2020 <- subset(Spr2020_Exp_Pretest_6, select = AU_WhateverTheyWant:AU_KeepThinking)
+fassaert_exppre_Spr2020 <- subset(Spr2020_Exp_Pretest_6, select = AU_10_NotDistracted:AU_10_NonVerbal)
+```
+
+
+
+```{r}
+busiol_exppre_Spr2020$busiol_total <- rowSums(busiol_exppre_Spr2020)
+fassaert_exppre_Spr2020$fassaert_total <- rowSums(fassaert_exppre_Spr2020)
+busiol_exppre_Spr2020
+fassaert_exppre_Spr2020
+```
+```{r}
+busiol_exppre_Spr2020$busiol_mean <- round((busiol_exppre_Spr2020$busiol_total / 8), digits = 2)
+busiol_exppre_Spr2020
+
+fassaert_exppre_Spr2020$fassaert_mean <- round((fassaert_exppre_Spr2020$fassaert_total / 7), digits = 2)
+fassaert_exppre_Spr2020
+```
+
+
+
+```{r}
+density_busiol_mean_exppre_Spr2020 <- density(busiol_exppre_Spr2020$busiol_mean)
+plot(density_busiol_mean_exppre_Spr2020, main="Kernel Density of Busiol Means")
+polygon(density_busiol_mean_exppre_Spr2020, col="red", border="blue")
+
+density_fassaert_mean_exppre_Spr2020 <- density(fassaert_exppre_Spr2020$fassaert_mean)
+plot(density_fassaert_mean_exppre_Spr2020, main="Kernel Density of Fassaert Means")
+polygon(density_fassaert_mean_exppre_Spr2020, col="red", border="blue")
+```
+
+```{r}
+total_mean_exppre_busiol_Spr2020 <- sum(busiol_exppre_Spr2020$busiol_mean) / 58
+new_total_mean_exppre_busiol_Spr2020 <- 7 - total_mean_exppre_busiol_Spr2020
+new_total_mean_exppre_busiol_Spr2020
+sd_exppre_busiol_mean_Spr2020 <- sd(busiol_exppre_Spr2020$busiol_mean)
+sd_exppre_busiol_mean_Spr2020
+
+total_mean_exppre_fassaert_Spr2020 <- sum(fassaert_exppre_Spr2020$fassaert_mean) / 58
+total_mean_exppre_fassaert_Spr2020
+sd_exppre_fassaert_mean_Spr2020 <- sd(fassaert_exppre_Spr2020$fassaert_mean)
+sd_exppre_fassaert_mean_Spr2020
+```
+
+```{r}
+busiol_exp_ttest_Spr2020 <-t.test(busiol_exppost_Spr2020$busiol_mean, busiol_exppre_Spr2020$busiol_mean, paired=TRUE)
+busiol_exp_ttest_Spr2020
+
+fassaert_exp_ttest_Spr2020 <-t.test(fassaert_exppost_Spr2020$fassaert_mean, fassaert_exppre_Spr2020$fassaert_mean, paired=TRUE)
+fassaert_exp_ttest_Spr2020
+```
+
+
+
+
+```{r}
+DV_Exppre_Spr2020 <- subset(Spr2020_Exp_Pretest_6, select = DV_JoinOrg:DV_Limited)
+```
+
+
+```{r}
+DV_Exppre_Spr2020$diversity_total <- rowSums(DV_Exppre_Spr2020)
+DV_Exppre_Spr2020
+```
+```{r}
+#number dividing changes for how many columns
+DV_Exppre_Spr2020$diversity_mean <- round((DV_Exppre_Spr2020$diversity_total / 15), digits = 2)
+DV_Exppre_Spr2020
+```
+
+
+
+```{r}
+density_diversity_mean_Exppre_Spr2020 <- density(DV_Exppre_Spr2020$diversity_mean)
+plot(density_diversity_mean_Exppre_Spr2020, main="Kernel Density of Diversity Means")
+polygon(density_diversity_mean_Exppre_Spr2020, col="red", border="blue")
+```
+
+```{r}
+#dont forget to divide by the current number of rows
+new_total_mean_Exppre_Spr2020_diversity <- sum(DV_Exppre_Spr2020$diversity_mean) / 58
+new_total_mean_Exppre_Spr2020_diversity
+sd_Exppre_Spr2020_diversity_mean <- sd(DV_Exppre_Spr2020$diversity_mean)
+sd_Exppre_Spr2020_diversity_mean
+```
+
+#5/10/2021
+
+```{r}
+#These are the codes to turn the responses to 8.13-8.15.  We are turning the pre- and post- columns into dataframes.  Then we are adding the 'pre' and 'post' labels to each value before combining the dataframes into one dataframe.  This will allow us to create a grouped bar chart, which will determine the count/frequency of the responses in each question.
+
+neg_slur_exp_pretest_Spr2020 <- as.data.frame(Spr2020_Exp_Pretest_6$SD_13_NegativeSlur)
+neg_slur_exp_pretest_Spr2020$PrePost <- 'Pre'
+names(neg_slur_exp_pretest_Spr2020)[names(neg_slur_exp_pretest_Spr2020) == "Spr2020_Exp_Pretest_6$SD_13_NegativeSlur"] <- "NegativeSlur"
+
+neg_slur_exp_posttest_Spr2020 <- as.data.frame(Spr2020_Exp_Posttest_6$SD_13_NegativeSlur)
+neg_slur_exp_posttest_Spr2020$PrePost <- 'Post'
+names(neg_slur_exp_posttest_Spr2020)[names(neg_slur_exp_posttest_Spr2020) == "Spr2020_Exp_Posttest_6$SD_13_NegativeSlur"] <- "NegativeSlur"
+
+neg_slur_Spr2020 <- rbind(neg_slur_exp_pretest_Spr2020, neg_slur_exp_posttest_Spr2020)
+```
+
+
+```{r}
+tbl_neg_slur_Spr2020 <- with(neg_slur_Spr2020, table(PrePost, NegativeSlur))
+ggplot(as.data.frame(tbl_neg_slur_Spr2020), aes(factor(NegativeSlur), Freq, fill =fct_reorder(PrePost, Freq, .desc=TRUE))) +  
+  geom_col(position = 'dodge')
+```
+
+
+```{r}
+neg_ass_exp_pretest_Spr2020 <- as.data.frame(Spr2020_Exp_Pretest_6$SD_13_NegativeAssumption)
+neg_ass_exp_pretest_Spr2020$PrePost <- 'Pre'
+names(neg_ass_exp_pretest_Spr2020)[names(neg_ass_exp_pretest_Spr2020) == "Spr2020_Exp_Pretest_6$SD_13_NegativeAssumption"] <- "NegativeAssumption"
+
+neg_ass_exp_posttest_Spr2020 <- as.data.frame(Spr2020_Exp_Posttest_6$SD_13_NegativeAssumption)
+neg_ass_exp_posttest_Spr2020$PrePost <- 'Post'
+names(neg_ass_exp_posttest_Spr2020)[names(neg_ass_exp_posttest_Spr2020) == "Spr2020_Exp_Posttest_6$SD_13_NegativeAssumption"] <- "NegativeAssumption"
+
+neg_ass_Spr2020 <- rbind(neg_ass_exp_pretest_Spr2020, neg_ass_exp_posttest_Spr2020)
+```
+
+
+```{r}
+tbl_neg_ass_Spr2020 <- with(neg_ass_Spr2020, table(PrePost, NegativeAssumption))
+ggplot(as.data.frame(tbl_neg_ass_Spr2020), aes(factor(NegativeAssumption), Freq, fill =fct_reorder(PrePost, Freq, .desc=FALSE))) +  
+  geom_col(position = 'dodge')
+```
+
+
+
+```{r}
+afr_you_exp_pretest_Spr2020 <- as.data.frame(Spr2020_Exp_Pretest_6$SD_13_AfraidOfYou)
+afr_you_exp_pretest_Spr2020$PrePost <- 'Pre'
+names(afr_you_exp_pretest_Spr2020)[names(afr_you_exp_pretest_Spr2020) == "Spr2020_Exp_Pretest_6$SD_13_AfraidOfYou"] <- "AfraidOfYou"
+
+afr_you_exp_posttest_Spr2020 <- as.data.frame(Spr2020_Exp_Posttest_6$SD_13_AfraidOfYou)
+afr_you_exp_posttest_Spr2020$PrePost <- 'Post'
+names(afr_you_exp_posttest_Spr2020)[names(afr_you_exp_posttest_Spr2020) == "Spr2020_Exp_Posttest_6$SD_13_AfraidOfYou"] <- "AfraidOfYou"
+
+afr_you_Spr2020 <- rbind(afr_you_exp_pretest_Spr2020, afr_you_exp_posttest_Spr2020)
+```
+
+
+```{r}
+tbl_afr_you_Spr2020 <- with(afr_you_Spr2020, table(PrePost, AfraidOfYou))
+ggplot(as.data.frame(tbl_afr_you_Spr2020), aes(factor(AfraidOfYou), Freq, fill =fct_reorder(PrePost, Freq, .desc=TRUE))) +  
+  geom_col(position = 'dodge')
+```
+
+
+
+```{r}
+last_disc_exp_pretest_Spr2020 <- as.data.frame(Spr2020_Exp_Pretest_6$SD_LastTimeDiscriminated)
+last_disc_exp_pretest_Spr2020$PrePost <- 'Pre'
+names(last_disc_exp_pretest_Spr2020)[names(last_disc_exp_pretest_Spr2020) == "Spr2020_Exp_Pretest_6$SD_LastTimeDiscriminated"] <- "LastTimeDiscriminated"
+
+last_disc_exp_posttest_Spr2020 <- as.data.frame(Spr2020_Exp_Posttest_6$SD_LastTimeDiscriminated)
+last_disc_exp_posttest_Spr2020$PrePost <- 'Post'
+names(last_disc_exp_posttest_Spr2020)[names(last_disc_exp_posttest_Spr2020) == "Spr2020_Exp_Posttest_6$SD_LastTimeDiscriminated"] <- "LastTimeDiscriminated"
+
+last_disc_Spr2020 <- rbind(last_disc_exp_pretest_Spr2020, last_disc_exp_posttest_Spr2020)
+```
+
+
+```{r}
+tbl_last_disc_Spr2020 <- with(last_disc_Spr2020, table(PrePost, LastTimeDiscriminated))
+ggplot(as.data.frame(tbl_last_disc_Spr2020), aes(factor(LastTimeDiscriminated), Freq, fill =fct_reorder(PrePost, Freq, .desc=FALSE))) +  
+  geom_col(position = 'dodge')
+```
+
+```{r}
+disc_life_exp_pretest_Spr2020 <- as.data.frame(Spr2020_Exp_Pretest_6$SD_DiscriminatedLifetime)
+disc_life_exp_pretest_Spr2020$PrePost <- 'Pre'
+names(disc_life_exp_pretest_Spr2020)[names(disc_life_exp_pretest_Spr2020) == "Spr2020_Exp_Pretest_6$SD_DiscriminatedLifetime"] <- "DiscriminatedLifetime"
+
+disc_life_exp_postest_Spr2020 <- as.data.frame(Spr2020_Exp_Posttest_6$SD_DiscriminatedLifetime)
+disc_life_exp_postest_Spr2020$PrePost <- 'Post'
+names(disc_life_exp_postest_Spr2020)[names(disc_life_exp_postest_Spr2020) == "Spr2020_Exp_Posttest_6$SD_DiscriminatedLifetime"] <- "DiscriminatedLifetime"
+
+disc_life_Spr2020 <- rbind(disc_life_exp_pretest_Spr2020, disc_life_exp_postest_Spr2020)
+```
+
+
+```{r}
+tbl_disc_life_Spr2020 <- with(disc_life_Spr2020, table(PrePost, DiscriminatedLifetime))
+ggplot(as.data.frame(tbl_disc_life_Spr2020), aes(factor(DiscriminatedLifetime), Freq, fill =fct_reorder(PrePost, Freq, .desc=FALSE))) +  
+  geom_col(position = 'dodge')
+```
+#5/11/2021
+
+```{r}
+BS_Exppre_Spr2020$Sex <- Spr2020_Exp_Pretest_6$GD_Gender
+BS_Exppre_Spr2020
+BS_Exppre_Spr2020 <- BS_Exppre_Spr2020 %>%
+  filter(Sex == '1' | Sex == '2')
+BS_Exppre_Spr2020$PrePost <- 'Pre'
+BS_Exppre_Spr2020
+```
+
+```{r}
+BS_Exppost_Spr2020$Sex <- Spr2020_Exp_Posttest_6$GD_Gender
+BS_Exppost_Spr2020 <- BS_Exppost_Spr2020 %>%
+  filter(Sex == '1' | Sex == '2')
+BS_Exppost_Spr2020$PrePost <- 'Post'
+BS_Exppost_Spr2020
+```
+
+```{r}
+BS_exp_prepost_Spr2020 <- rbind(BS_Exppre_Spr2020, BS_Exppost_Spr2020)
+BS_exp_prepost_Spr2020 <- BS_exp_prepost_Spr2020 %>% select(empathy_total, Sex, PrePost)
+```
+
+```{r}
+#Max possible empathy total score is 77 (7X11)
+#Sex: women are 1.0, men 2.0
+#install.packages("ggpubr")
+#install.packages("rstatix")
+library(ggpubr)
+library(rstatix)
+BS_exp_prepost_Spr2020 %>%
+  group_by(PrePost, Sex) %>%
+  get_summary_stats(empathy_total, type = "mean_sd")
+```
+
+```{r}
+#Boxplot to see distribution of empathy_mean, comparing the score from before and after taking the class (treatment), and also comparing the two groups of Sex.
+bxp_BS_Spr2020 <- ggboxplot(
+  BS_exp_prepost_Spr2020, x = "Sex", y = "empathy_total",
+  color = "PrePost", palette = "jco"
+  )
+bxp_BS_Spr2020
+```
+
+```{r}
+# We are using the following code to check for outliers.  We have returned an empty dataframe, signifying that we have no outliers.  We are good to go check the next assumption.
+BS_exp_prepost_Spr2020 %>%
+  group_by(PrePost, Sex) %>%
+  identify_outliers(empathy_total)
+```
+
+```{r}
+#We are checking for distribution normality.  We want the p-value of all four groups to be over 0.05.  All four of them are, so we know that each group is distributed normally.
+BS_exp_prepost_Spr2020 %>%
+  group_by(PrePost, Sex) %>%
+  shapiro_test(empathy_total)
+```
+
+```{r}
+#From the plot below, as all the points fall approximately along the reference line, we can assume normality.
+ggqqplot(BS_exp_prepost_Spr2020, "empathy_total", ggtheme = theme_bw()) +
+  facet_grid(Sex ~ PrePost, labeller = "label_both")
+```
+
+```{r}
+id <- rownames(BS_exp_prepost_Spr2020)
+BS_exp_prepost_Spr2019 <- cbind(id=id, BS_exp_prepost_Spr2020)
+```
+```{r}
+#The following is code to run a Repeated Measures ANOVA test, comparing the empathy means to the effect of Pre or Post, the effect of gender, and the interation between PrePost and sex.  We find in this case that there is no significant interaction between PrePost and sex, so moving forward we need to  interpret the main effects for each of the two variables: prepost and sex.
+BS_anovatest_Spr2020 <- anova_test(
+  data = BS_exp_prepost_Spr2020, dv = empathy_total,
+  between = c(PrePost, Sex))
+get_anova_table(BS_anovatest_Spr2020)
+```
+
+```{r}
+# comparisons for treatment variable
+BS_exp_prepost_Spr2020 %>%
+  pairwise_t_test(
+    empathy_total ~ PrePost, paired = FALSE,
+    p.adjust.method = "bonferroni"
+    )
+# comparisons for sex variable
+BS_exp_prepost_Spr2020 %>%
+  pairwise_t_test(
+    empathy_total ~ Sex, paired = FALSE,
+    p.adjust.method = "bonferroni"
+    )
+```

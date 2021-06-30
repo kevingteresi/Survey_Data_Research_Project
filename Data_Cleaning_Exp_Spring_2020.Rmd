@@ -1,0 +1,597 @@
+---
+title: "Empathy Research Project - Data Cleaning Experimental Pretest Spring 2020"
+Author: "Kevin Teresi and Kenneth Lefin"
+Date: "Spring Semester, 2021"
+output: html_notebook
+---
+
+```{r}
+Spr2020_Exp_Pretest <- HH_Experimental_Pretest_Spring_2020
+colnames(Spr2020_Exp_Pretest) <- variables
+Spr2020_Exp_Pretest
+```
+
+```{r}
+Spr2020_Exp_Pretest_2 <- Spr2020_Exp_Pretest[-c(1),]
+Spr2020_Exp_Pretest_2
+```
+
+```{r}
+Spr2020_Exp_Pretest_3 <- Spr2020_Exp_Pretest_2 %>%
+  filter(WU_Attentive == 'Not applicable. Please explain:' & HD_Attentive == 'Not applicable. Please explain:')
+rev(Spr2020_Exp_Pretest_3)[1]
+```
+
+```{r}
+x <- subset(Spr2020_Exp_Pretest_3, select = EB_ThreatenYou:EB_Gestures)
+y <- subset(Spr2020_Exp_Pretest_3, select = WU_First:BS_BodyLanguage)
+z <- subset(Spr2020_Exp_Pretest_3, select = AU_WhateverTheyWant:HD_Attentive)
+x
+```
+
+```{r}
+#code for section 4(EB)
+x[x == "1 Have never experienced this"] <- "1"
+x[x == "7 Have often experienced this"] <- "7"
+
+x
+```
+
+```{r}
+Spr2020_Exp_Pretest_4 <- cbind(y,x,z)
+Spr2020_Exp_Pretest_4
+```
+
+```{r}
+#Code for Section 5(AU)
+a <- subset(Spr2020_Exp_Pretest_4, select = WU_First:BS_BodyLanguage)
+b <- subset(Spr2020_Exp_Pretest_4, select = EB_ThreatenYou:EB_Gestures)
+#c is 6-12 to 1-7, it is reversed code in the correct way
+c <- subset(Spr2020_Exp_Pretest_4, select = AU_WhateverTheyWant:AU_KeepThinking)
+#d is reverse coded in the correct way
+d <- subset(Spr2020_Exp_Pretest_4, select = AU_10_NotDistracted:AU_10_NonVerbal)
+e <- subset(Spr2020_Exp_Pretest_4, select = CCE_TempIncreasing:HD_Attentive)
+
+d
+```
+
+```{r}
+#Needs to be reverse coded
+c[c == "Strongly disagree"] <- "1"
+c[c == "Disagree"] <- "2"
+c[c == "Somewhat disagree"] <- "3"
+c[c == "Neither agree nor disagree"] <- "4"
+c[c == "Somewhat agree"] <- "5"
+c[c == "Agree"] <- "6"
+c[c == "Strongly agree"] <- "7"
+
+d[d == "Never"] <- "1"
+d[d == "Always"] <- "5"
+
+c
+d
+```
+
+```{r}
+Spr2020_Exp_Pretest_4 <- cbind(a,b,c,d,e)
+Spr2020_Exp_Pretest_4
+```
+
+```{r}
+#Section 1 (WU)
+x1 <- subset(Spr2020_Exp_Pretest_4, select = WU_BeMyself:WU_UnderstandMe)
+y1 <- subset(Spr2020_Exp_Pretest_4, select = WU_First:WU_Class)
+z1 <- subset(Spr2020_Exp_Pretest_4, select = WU_Attentive:HD_Attentive)
+x1
+```
+
+```{r}
+#needs reverse coding
+x1[x1 == "Strongly disagree"] <- "1"
+x1[x1 == "Somewhat disagree"] <- "2"
+x1[x1 == "Neither agree nor disagree"] <- "3"
+x1[x1 == "Somewhat agree"] <- "4"
+x1[x1 == "Strongly agree"] <- "5"
+x1
+```
+
+```{r}
+Spr2020_Exp_Pretest_4 <- cbind(y1,x1,z1)
+Spr2020_Exp_Pretest_4
+```
+
+```{r}
+#Section 3 (BS)
+x3 <- subset(Spr2020_Exp_Pretest_4, select = BS_Sensitivity:BS_BodyLanguage)
+y3 <- subset(Spr2020_Exp_Pretest_4, select = WU_First:WU_Attentive)
+z3 <- subset(Spr2020_Exp_Pretest_4, select = EB_ThreatenYou:HD_Attentive)
+x3
+```
+
+```{r}
+#needs reverse coding
+x3[x3 == "Never or almost never true"] <- "1"
+x3[x3 == "Occasionally true"] <- "4"
+x3[x3 == "Always or almost always true"] <- "7"
+x3
+```
+
+```{r}
+Spr2020_Exp_Pretest_4 <- cbind(y3,x3,z3)
+Spr2020_Exp_Pretest_4
+```
+
+
+
+
+```{r}
+#Section 6 (CCE)
+a6 <- subset(Spr2020_Exp_Pretest_4, select = WU_First:AU_10_NonVerbal)
+b6 <- subset(Spr2020_Exp_Pretest_4, select = CCE_TempIncreasing)
+c6 <- subset(Spr2020_Exp_Pretest_4, select = CCE_WeatherChanging)
+d6 <- subset(Spr2020_Exp_Pretest_4, select = CCE_ClimateChangeOpinion)
+e6 <- subset(Spr2020_Exp_Pretest_4, select = CCE_Concerned:CCE_OthersConcerned)
+f6 <- subset(Spr2020_Exp_Pretest_4, select = CCE_AffectHealth)
+g6 <- subset(Spr2020_Exp_Pretest_4, select = CCE_ViewOnEffects)
+h6 <- subset(Spr2020_Exp_Pretest_4, select = DV_JoinOrg:HD_Attentive)
+b6
+```
+
+```{r}
+#section 6
+b6[b6 == "Yes, climate change is happening"] <- "1"
+b6[b6 == "No, climate change is not happening"] <- "2"
+b6[b6 == "Not sure"] <- "3"
+
+c6[c6 == "Yes"] <- "1"
+c6[c6 == "No"] <- "2"
+c6[c6 == "Not sure"] <- "3"
+
+d6[d6 == "It is happening due to a combination of both human activities and natural causes"] <- "1"
+d6[d6 == "It is happening mainly due to human activities"] <- "2"
+d6[d6 == "It is happening mainly due to natural causes"] <- "3"
+d6[d6 == "Climate change is not happening"] <- "4"
+d6[d6 == "Not sure"] <- "5"
+
+e6[e6 == "Not concerned at all"] <- "1"
+e6[e6 == "A little concerned"] <- "2"
+e6[e6 == "Somewhat concerned"] <- "3"
+e6[e6 == "Very concerned"] <- "4"
+
+f6[f6 == "Improve your health - a lot"] <- "1"
+f6[f6 == "Improve your health - a little"] <- "2"
+f6[f6 == "Make no difference"] <- "3"
+f6[f6 == "Harm your health - a little"] <- "4"
+f6[f6 == "Harm your health - a lot"] <- "5"
+f6[f6 == "Not sure"] <- "6"
+
+g6[g6 == "They have already begun to happen"] <- "1"
+g6[g6 == "They will start happening within a few years"] <- "2"
+g6[g6 == "They will start happening within your lifetime"] <- "3"
+g6[g6 == "They will not happen within your lifetime"] <- "4"
+g6[g6 == "They will never happen"] <- "5"
+g6[g6 == "Not sure"] <- "6"
+
+```
+
+```{r}
+Spr2020_Exp_Pretest_4 <- cbind(a6, b6, c6, d6, e6, f6, g6, h6)
+Spr2020_Exp_Pretest_4
+```
+
+```{r}
+#Section 7 (DV)
+x7 <- subset(Spr2020_Exp_Pretest_4, select = DV_JoinOrg:DV_Limited)
+y7 <- subset(Spr2020_Exp_Pretest_4, select = WU_First:CCE_ViewOnEffects)
+z7 <- subset(Spr2020_Exp_Pretest_4, select = SD_2_ElderlyFamilyMember:HD_Attentive)
+x7
+```
+
+```{r}
+x7[x7 == "Strongly disagree"] <- "1"
+x7[x7 == "Stronlgy disagree"] <- "1"
+x7[x7 == "Disagree"] <- "2"
+x7[x7 == "Neutral"] <- "3"
+x7[x7 == "Agree"] <- "4"
+x7[x7 == "Strongly agree"] <- "5"
+
+x7
+```
+
+```{r}
+Spr2020_Exp_Pretest_4 <- cbind(y7,x7,z7)
+Spr2020_Exp_Pretest_4
+```
+
+```{r}
+#Section 8 (SD)
+a8 <- subset(Spr2020_Exp_Pretest_4, select = WU_First:DV_Limited)
+b8 <- subset(Spr2020_Exp_Pretest_4, select = SD_2_ElderlyFamilyMember:SD_8_GayExclude)
+c8 <- subset(Spr2020_Exp_Pretest_4, select = SD_ConsiderYourself)
+d8 <- subset(Spr2020_Exp_Pretest_4, select = SD_Discrimination)
+#e8 <- subset(Spr2020_Exp_Pretest_4, select = SD_Police:SD_Doctor)
+f8 <- subset(Spr2020_Exp_Pretest_4, select = SD_BeenDiscriminated)
+g8 <- subset(Spr2020_Exp_Pretest_4, select = SD_13_NegativeSlur:SD_13_AfraidOfYou)
+h8 <- subset(Spr2020_Exp_Pretest_4, select = SD_LastTimeDiscriminated)
+i8 <- subset(Spr2020_Exp_Pretest_4, select = SD_DiscriminatedLifetime)
+j8 <- subset(Spr2020_Exp_Pretest_4, select = GD_Major:HD_Attentive)
+b8
+
+```
+
+```{r}
+b8[b8 == "Unwilling"] <- "1"
+b8[b8 == "Not Sure"] <- "2"
+b8[b8 == "Probably Willing"] <- "3"
+b8[b8 == "Definitely Willing"] <- "4"
+
+c8[c8 == "Heterosexual or Straight"] <- "1"
+c8[c8 == "Gay or Lesbian"] <- "2"
+c8[c8 == "Bisexual"] <- "3"
+c8[c8 == "Queer"] <- "4"
+c8[c8 == "Other. Please state:"] <- "5"
+c8[c8 == "Prefer not to answer"] <- "6"
+
+d8[d8 == "Definitely not"] <- "1"
+d8[d8 == "Probably not"] <- "2"
+d8[d8 == "Might or might not"] <- "3"
+d8[d8 == "Probably yes"] <- "4"
+d8[d8 == "Definitely yes"] <- "5"
+
+#e8[e8 == "Definitely not"] <- "1"
+#e8[e8 == "Probably not"] <- "2"
+#e8[e8 == "Might or might not"] <- "3"
+#e8[e8 == "Probably yes"] <- "4"
+#e8[e8 == "Definitely yes"] <- "5"
+
+f8[f8 == "Elderly"] <- "1"
+f8[f8 == "Overweight"] <- "2"
+f8[f8 == "Gay, Lesbian, Bisexual, Queer"] <- "3"
+f8[f8 == "African American (Black)"] <- "4"
+f8[f8 == "Being an immigrant or refugee"] <- "5"
+f8[f8 == "Being disabled"] <- "6"
+f8[f8 == "Some other group or category. Please state:"] <- "7"
+
+g8[g8 == "Yes"] <- "1"
+g8[g8 == "No"] <- "2"
+g8[g8 == "Not sure"] <- "3"
+
+h8[h8 == "Past week"] <- "1"
+h8[h8 == "Past month"] <- "2"
+h8[h8 == "Past year"] <- "3"
+h8[h8 == "More than a year ago"] <- "4"
+
+i8[i8 == "Once"] <- "1"
+i8[i8 == "A few times"] <- "2"
+i8[i8 == "Several times"] <- "3"
+i8[i8 == "Many times"] <- "4"
+i8[i8 == "Once a month"] <- "5"
+i8[i8 == "Once a week"] <- "6"
+i8[i8 == "Once a day"] <- "7"
+i8[i8 == "More than once a day"] <- "8"
+
+```
+
+```{r}
+#make sure to fill in e8 for post-tests
+Spr2020_Exp_Pretest_4 <- cbind(a8, b8, c8, d8, f8, g8, h8, i8, j8)
+Spr2020_Exp_Pretest_4
+```
+
+```{r}
+#Section 9 (GD)
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Biological Sciences / Life Sciences"] <- "1"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Business"] <- "2"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Communications"] <- "3"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Computer and Information Sciences"] <- "4"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Education"] <- "5"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Engineering"] <- "6"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Mathematics, Physical Sciences / Technologies"] <- "7"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Health Professions or Related Sciences"] <- "8"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Humanities / Liberal Arts"] <- "9"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Law or Legal Studies"] <- "10"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Psychology"] <- "11"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Social Sciences or History"] <- "12"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Visual or Performing Arts"] <- "13"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Other. Please state:"] <- "14"
+Spr2020_Exp_Pretest_4$GD_Major[Spr2020_Exp_Pretest_4$GD_Major == "Undeclared"] <- "15"
+
+Spr2020_Exp_Pretest_4$GD_Class[Spr2020_Exp_Pretest_4$GD_Class == "Freshmen"] <- "1"
+Spr2020_Exp_Pretest_4$GD_Class[Spr2020_Exp_Pretest_4$GD_Class == "Sophomore"] <- "2"
+Spr2020_Exp_Pretest_4$GD_Class[Spr2020_Exp_Pretest_4$GD_Class == "Junior"] <- "3"
+Spr2020_Exp_Pretest_4$GD_Class[Spr2020_Exp_Pretest_4$GD_Class == "Senior"] <- "4"
+Spr2020_Exp_Pretest_4$GD_Class[Spr2020_Exp_Pretest_4$GD_Class == "Graduate"] <- "5"
+
+Spr2020_Exp_Pretest_4$GD_Gender[Spr2020_Exp_Pretest_4$GD_Gender == "Female"] <- "1"
+Spr2020_Exp_Pretest_4$GD_Gender[Spr2020_Exp_Pretest_4$GD_Gender == "Male"] <- "2"
+Spr2020_Exp_Pretest_4$GD_Gender[Spr2020_Exp_Pretest_4$GD_Gender == "Non-binary"] <- "3"
+Spr2020_Exp_Pretest_4$GD_Gender[Spr2020_Exp_Pretest_4$GD_Gender == "Other:"] <- "4"
+
+Spr2020_Exp_Pretest_4$GD_Race[Spr2020_Exp_Pretest_4$GD_Race == "American Indian / Alaskan Native."] <- "1"
+Spr2020_Exp_Pretest_4$GD_Race[Spr2020_Exp_Pretest_4$GD_Race == "East Asian. Please state:"] <- "2"
+Spr2020_Exp_Pretest_4$GD_Race[Spr2020_Exp_Pretest_4$GD_Race == "South Asian. Please state:"] <- "3"
+Spr2020_Exp_Pretest_4$GD_Race[Spr2020_Exp_Pretest_4$GD_Race == "Native Hawaiian"] <- "4"
+Spr2020_Exp_Pretest_4$GD_Race[Spr2020_Exp_Pretest_4$GD_Race == "Other Pacific Islander. Please state:"] <- "5"
+Spr2020_Exp_Pretest_4$GD_Race[Spr2020_Exp_Pretest_4$GD_Race == "Black or African American"] <- "6"
+Spr2020_Exp_Pretest_4$GD_Race[Spr2020_Exp_Pretest_4$GD_Race == "White"] <- "7"
+Spr2020_Exp_Pretest_4$GD_Race[Spr2020_Exp_Pretest_4$GD_Race == "Other or Unknown. If other, please state:"] <- "8"
+Spr2020_Exp_Pretest_4$GD_Race[Spr2020_Exp_Pretest_4$GD_Race == "Multiracial. Please state:"] <- "9"
+Spr2020_Exp_Pretest_4$GD_Race[Spr2020_Exp_Pretest_4$GD_Race == "Prefer not to answer"] <- "10"
+Spr2020_Exp_Pretest_4$GD_Race[Spr2020_Exp_Pretest_4$GD_Race == "Hispanic or Latino. Please state:"] <- "11"
+
+Spr2020_Exp_Pretest_4$GD_Country[Spr2020_Exp_Pretest_4$GD_Country == "United States"] <- "1"
+Spr2020_Exp_Pretest_4$GD_Country[Spr2020_Exp_Pretest_4$GD_Country == "Another country. Please state:"] <- "2"
+
+Spr2020_Exp_Pretest_4$GD_IntStudent[Spr2020_Exp_Pretest_4$GD_IntStudent == "Yes. Please state country of residence:"] <- "1"
+Spr2020_Exp_Pretest_4$GD_IntStudent[Spr2020_Exp_Pretest_4$GD_IntStudent == "No"] <- "2"
+
+Spr2020_Exp_Pretest_4$GD_Immigrant[Spr2020_Exp_Pretest_4$GD_Immigrant == "Yes"] <- "1"
+Spr2020_Exp_Pretest_4$GD_Immigrant[Spr2020_Exp_Pretest_4$GD_Immigrant == "No"] <- "2"
+Spr2020_Exp_Pretest_4$GD_Immigrant[Spr2020_Exp_Pretest_4$GD_Immigrant == "Not sure"] <- "3"
+
+Spr2020_Exp_Pretest_4$GD_Parents[Spr2020_Exp_Pretest_4$GD_Parents == "No"] <- "1"
+Spr2020_Exp_Pretest_4$GD_Parents[Spr2020_Exp_Pretest_4$GD_Parents == "My mother. Please state country:"] <- "2"
+Spr2020_Exp_Pretest_4$GD_Parents[Spr2020_Exp_Pretest_4$GD_Parents == "My father. Please state country:"] <- "3"
+Spr2020_Exp_Pretest_4$GD_Parents[Spr2020_Exp_Pretest_4$GD_Parents == "Prefer not to answer"] <- "4"
+
+Spr2020_Exp_Pretest_4$GD_English[Spr2020_Exp_Pretest_4$GD_English == "Yes"] <- "1"
+Spr2020_Exp_Pretest_4$GD_English[Spr2020_Exp_Pretest_4$GD_English == "No"] <- "2"
+
+Spr2020_Exp_Pretest_4$GD_MothersEdu[Spr2020_Exp_Pretest_4$GD_MothersEdu == "Grammar school"] <- "1"
+Spr2020_Exp_Pretest_4$GD_MothersEdu[Spr2020_Exp_Pretest_4$GD_MothersEdu == "High school"] <- "2"
+Spr2020_Exp_Pretest_4$GD_MothersEdu[Spr2020_Exp_Pretest_4$GD_MothersEdu == "Some college"] <- "3"
+Spr2020_Exp_Pretest_4$GD_MothersEdu[Spr2020_Exp_Pretest_4$GD_MothersEdu == "4-year college"] <- "4"
+Spr2020_Exp_Pretest_4$GD_MothersEdu[Spr2020_Exp_Pretest_4$GD_MothersEdu == "Graduate school"] <- "5"
+
+Spr2020_Exp_Pretest_4$GD_FathersEdu[Spr2020_Exp_Pretest_4$GD_FathersEdu == "Grammar school"] <- "1"
+Spr2020_Exp_Pretest_4$GD_FathersEdu[Spr2020_Exp_Pretest_4$GD_FathersEdu == "High school"] <- "2"
+Spr2020_Exp_Pretest_4$GD_FathersEdu[Spr2020_Exp_Pretest_4$GD_FathersEdu == "Some college"] <- "3"
+Spr2020_Exp_Pretest_4$GD_FathersEdu[Spr2020_Exp_Pretest_4$GD_FathersEdu == "4-year college"] <- "4"
+Spr2020_Exp_Pretest_4$GD_FathersEdu[Spr2020_Exp_Pretest_4$GD_FathersEdu == "Graduate school"] <- "5"
+
+Spr2020_Exp_Pretest_4$GD_FamilyEcon[Spr2020_Exp_Pretest_4$GD_FamilyEcon == "Wealthy"] <- "1"
+Spr2020_Exp_Pretest_4$GD_FamilyEcon[Spr2020_Exp_Pretest_4$GD_FamilyEcon == "Comfortable"] <- "2"
+Spr2020_Exp_Pretest_4$GD_FamilyEcon[Spr2020_Exp_Pretest_4$GD_FamilyEcon == "Sometimes struggling to make ends meet"] <- "3"
+Spr2020_Exp_Pretest_4$GD_FamilyEcon[Spr2020_Exp_Pretest_4$GD_FamilyEcon == "Frequently having to make do without necessities"] <- "4"
+
+Spr2020_Exp_Pretest_4$GD_BothParents16[Spr2020_Exp_Pretest_4$GD_BothParents16 == "Yes"] <- "1"
+Spr2020_Exp_Pretest_4$GD_BothParents16[Spr2020_Exp_Pretest_4$GD_BothParents16 == "No"] <- "2"
+
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Father and stepparent"] <- "1"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Mother and stepparent"] <- "2"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Father only"] <- "3"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Mother only"] <- "4"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Some other male relative (no female head of household)"] <- "5"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Some other female relative (no male head of household)"] <- "6"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Aunt and uncle"] <- "7"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Grandparents"] <- "8"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Foster parents"] <- "9"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Married by age 16 and living with spouse"] <- "10"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Left home by age 16"] <- "11"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Other. Please state:"] <- "12"
+Spr2020_Exp_Pretest_4$GD_NotBothParents[Spr2020_Exp_Pretest_4$GD_NotBothParents == "Prefer not to answer"] <- "13"
+
+Spr2020_Exp_Pretest_4$GD_MaritalAt16[Spr2020_Exp_Pretest_4$GD_MaritalAt16 == "Married"] <- "1"
+Spr2020_Exp_Pretest_4$GD_MaritalAt16[Spr2020_Exp_Pretest_4$GD_MaritalAt16 == "Widowed. My dad passed away when I was (age):"] <- "2"
+Spr2020_Exp_Pretest_4$GD_MaritalAt16[Spr2020_Exp_Pretest_4$GD_MaritalAt16 == "Widowed. My mom passed away when I was (age):"] <- "3"
+Spr2020_Exp_Pretest_4$GD_MaritalAt16[Spr2020_Exp_Pretest_4$GD_MaritalAt16 == "Divorced. My parents divorced when I was (age):"] <- "4"
+Spr2020_Exp_Pretest_4$GD_MaritalAt16[Spr2020_Exp_Pretest_4$GD_MaritalAt16 == "Separated. My parents separated when I was (age):"] <- "5"
+Spr2020_Exp_Pretest_4$GD_MaritalAt16[Spr2020_Exp_Pretest_4$GD_MaritalAt16 == "In a domestic partnership (living together, not married)"] <- "6"
+Spr2020_Exp_Pretest_4$GD_MaritalAt16[Spr2020_Exp_Pretest_4$GD_MaritalAt16 == "In a committed relationship (not living together, not married)"] <- "7"
+Spr2020_Exp_Pretest_4$GD_MaritalAt16[Spr2020_Exp_Pretest_4$GD_MaritalAt16 == "Other. Please state:"] <- "8"
+Spr2020_Exp_Pretest_4$GD_MaritalAt16[Spr2020_Exp_Pretest_4$GD_MaritalAt16 == "Never in a committed relationship"] <- "9"
+
+Spr2020_Exp_Pretest_4$GD_Marital[Spr2020_Exp_Pretest_4$GD_Marital == "Single, never married"] <- "1"
+Spr2020_Exp_Pretest_4$GD_Marital[Spr2020_Exp_Pretest_4$GD_Marital == "Married"] <- "2"
+Spr2020_Exp_Pretest_4$GD_Marital[Spr2020_Exp_Pretest_4$GD_Marital == "Widowed"] <- "3"
+Spr2020_Exp_Pretest_4$GD_Marital[Spr2020_Exp_Pretest_4$GD_Marital == "Divorced"] <- "4"
+Spr2020_Exp_Pretest_4$GD_Marital[Spr2020_Exp_Pretest_4$GD_Marital == "Separated"] <- "5"
+Spr2020_Exp_Pretest_4$GD_Marital[Spr2020_Exp_Pretest_4$GD_Marital == "In a domestic partnership (living together, not married)"] <- "6"
+Spr2020_Exp_Pretest_4$GD_Marital[Spr2020_Exp_Pretest_4$GD_Marital == "In a committed relationship (not living together, not married)"] <- "7"
+Spr2020_Exp_Pretest_4$GD_Marital[Spr2020_Exp_Pretest_4$GD_Marital == "Other. Please state:"] <- "8"
+
+Spr2020_Exp_Pretest_4$GD_PoliIdentity[Spr2020_Exp_Pretest_4$GD_PoliIdentity == "Strongly Conservative"] <- "1"
+Spr2020_Exp_Pretest_4$GD_PoliIdentity[Spr2020_Exp_Pretest_4$GD_PoliIdentity == "Moderately Conservative"] <- "2"
+Spr2020_Exp_Pretest_4$GD_PoliIdentity[Spr2020_Exp_Pretest_4$GD_PoliIdentity == "Slightly Conservative"] <- "3"
+Spr2020_Exp_Pretest_4$GD_PoliIdentity[Spr2020_Exp_Pretest_4$GD_PoliIdentity == "Neutral"] <- "4"
+Spr2020_Exp_Pretest_4$GD_PoliIdentity[Spr2020_Exp_Pretest_4$GD_PoliIdentity == "Slightly Liberal"] <- "5"
+Spr2020_Exp_Pretest_4$GD_PoliIdentity[Spr2020_Exp_Pretest_4$GD_PoliIdentity == "Moderately Liberal"] <- "6"
+Spr2020_Exp_Pretest_4$GD_PoliIdentity[Spr2020_Exp_Pretest_4$GD_PoliIdentity == "Strongly Liberal"] <- "7"
+Spr2020_Exp_Pretest_4$GD_PoliIdentity[Spr2020_Exp_Pretest_4$GD_PoliIdentity == "Undecided"] <- "8"
+
+Spr2020_Exp_Pretest_4$GD_PoliParty[Spr2020_Exp_Pretest_4$GD_PoliParty == "Democrat"] <- "1"
+Spr2020_Exp_Pretest_4$GD_PoliParty[Spr2020_Exp_Pretest_4$GD_PoliParty == "Republican"] <- "2"
+Spr2020_Exp_Pretest_4$GD_PoliParty[Spr2020_Exp_Pretest_4$GD_PoliParty == "Independent"] <- "3"
+Spr2020_Exp_Pretest_4$GD_PoliParty[Spr2020_Exp_Pretest_4$GD_PoliParty == "Other. Please state:"] <- "4"
+Spr2020_Exp_Pretest_4$GD_PoliParty[Spr2020_Exp_Pretest_4$GD_PoliParty == "No preference"] <- "5"
+Spr2020_Exp_Pretest_4$GD_PoliParty[Spr2020_Exp_Pretest_4$GD_PoliParty == "Not sure"] <- "6"
+
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Buddhist / Confucian / Shinto"] <- "1"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Christian Catholic or Orthodox"] <- "2"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Christian: Protestant or Other. If other, please state:"] <- "3"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Hindu"] <- "4"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Jewish"] <- "5"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Muslim / Islamic"] <- "6"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Mormon / Latter Day Saints, LDS"] <- "7"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Sikh"] <- "8"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Unitarian"] <- "9"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Other. Please state:"] <- "10"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Undecided"] <- "11"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "None"] <- "12"
+Spr2020_Exp_Pretest_4$GD_Religion[Spr2020_Exp_Pretest_4$GD_Religion == "Prefer not to answer"] <- "13"
+
+Spr2020_Exp_Pretest_4$GD_HowReligous[Spr2020_Exp_Pretest_4$GD_HowReligous == "Not at all religious"] <- "1"
+Spr2020_Exp_Pretest_4$GD_HowReligous[Spr2020_Exp_Pretest_4$GD_HowReligous == "Slightly religious"] <- "2"
+Spr2020_Exp_Pretest_4$GD_HowReligous[Spr2020_Exp_Pretest_4$GD_HowReligous == "Moderately religious"] <- "3"
+Spr2020_Exp_Pretest_4$GD_HowReligous[Spr2020_Exp_Pretest_4$GD_HowReligous == "Strongly religious"] <- "4"
+
+Spr2020_Exp_Pretest_4$GD_PellGrant[Spr2020_Exp_Pretest_4$GD_PellGrant == "Yes"] <- "1"
+Spr2020_Exp_Pretest_4$GD_PellGrant[Spr2020_Exp_Pretest_4$GD_PellGrant == "No"] <- "2"
+
+Spr2020_Exp_Pretest_4$GD_HoursWorked[Spr2020_Exp_Pretest_4$GD_HoursWorked == "Fewer than 5"] <- "1"
+Spr2020_Exp_Pretest_4$GD_HoursWorked[Spr2020_Exp_Pretest_4$GD_HoursWorked == "5 to 9"] <- "2"
+Spr2020_Exp_Pretest_4$GD_HoursWorked[Spr2020_Exp_Pretest_4$GD_HoursWorked == "10 to 14"] <- "3"
+Spr2020_Exp_Pretest_4$GD_HoursWorked[Spr2020_Exp_Pretest_4$GD_HoursWorked == "15 to 19"] <- "4"
+Spr2020_Exp_Pretest_4$GD_HoursWorked[Spr2020_Exp_Pretest_4$GD_HoursWorked == "20 to 24"] <- "5"
+Spr2020_Exp_Pretest_4$GD_HoursWorked[Spr2020_Exp_Pretest_4$GD_HoursWorked == "25 to 29"] <- "6"
+Spr2020_Exp_Pretest_4$GD_HoursWorked[Spr2020_Exp_Pretest_4$GD_HoursWorked == "30 to 34"] <- "7"
+Spr2020_Exp_Pretest_4$GD_HoursWorked[Spr2020_Exp_Pretest_4$GD_HoursWorked == "35 to 40"] <- "8"
+Spr2020_Exp_Pretest_4$GD_HoursWorked[Spr2020_Exp_Pretest_4$GD_HoursWorked == "More than 40"] <- "9"
+
+```
+
+```{r}
+#Section 10 (HD)
+Spr2020_Exp_Pretest_4$HD_PhysicalHealth[Spr2020_Exp_Pretest_4$HD_PhysicalHealth == "Poor"] <- "1"
+Spr2020_Exp_Pretest_4$HD_PhysicalHealth[Spr2020_Exp_Pretest_4$HD_PhysicalHealth == "Fair"] <- "2"
+Spr2020_Exp_Pretest_4$HD_PhysicalHealth[Spr2020_Exp_Pretest_4$HD_PhysicalHealth == "Good"] <- "3"
+Spr2020_Exp_Pretest_4$HD_PhysicalHealth[Spr2020_Exp_Pretest_4$HD_PhysicalHealth == "Very good"] <- "4"
+Spr2020_Exp_Pretest_4$HD_PhysicalHealth[Spr2020_Exp_Pretest_4$HD_PhysicalHealth == "Excellent"] <- "5"
+
+Spr2020_Exp_Pretest_4$HD_MentalHealth[Spr2020_Exp_Pretest_4$HD_MentalHealth == "Poor"] <- "1"
+Spr2020_Exp_Pretest_4$HD_MentalHealth[Spr2020_Exp_Pretest_4$HD_MentalHealth == "Fair"] <- "2"
+Spr2020_Exp_Pretest_4$HD_MentalHealth[Spr2020_Exp_Pretest_4$HD_MentalHealth == "Good"] <- "3"
+Spr2020_Exp_Pretest_4$HD_MentalHealth[Spr2020_Exp_Pretest_4$HD_MentalHealth == "Very good"] <- "4"
+Spr2020_Exp_Pretest_4$HD_MentalHealth[Spr2020_Exp_Pretest_4$HD_MentalHealth == "Excellent"] <- "5"
+
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "Shorter than 4 feet, 6 inches"] <- "1"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "4 feet 6 inches"] <- "2"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "4 feet 7 inches"] <- "3"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "4 feet 8 inches"] <- "4"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "4 feet 9 inches"] <- "5"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "4 feet 10 inches"] <- "6"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "4 feet 11 inches"] <- "7"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet"] <- "8"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet, 1 inch"] <- "9"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet, 2 inches"] <- "10"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet, 3 inches"] <- "11"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet, 4 inches"] <- "12"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet, 5 inches"] <- "13"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet, 6 inches"] <- "14"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet, 7 inches"] <- "15"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet, 8 inches"] <- "16"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet, 9 inches"] <- "17"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet, 10 inches"] <- "18"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "5 feet, 11 inches"] <- "19"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "6 feet"] <- "20"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "6 feet, 1 inch"] <- "21"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "6 feet, 2 inches"] <- "22"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "6 feet, 3 inches"] <- "23"
+Spr2020_Exp_Pretest_4$HD_Height[Spr2020_Exp_Pretest_4$HD_Height == "Taller than 6 feet, 3 inches"] <- "24"
+
+Spr2020_Exp_Pretest_4$HD_ChronicIllness[Spr2020_Exp_Pretest_4$HD_ChronicIllness == "Yes"] <- "1"
+Spr2020_Exp_Pretest_4$HD_ChronicIllness[Spr2020_Exp_Pretest_4$HD_ChronicIllness == "No"] <- "2"
+Spr2020_Exp_Pretest_4$HD_ChronicIllness[Spr2020_Exp_Pretest_4$HD_ChronicIllness == "Not sure"] <- "3"
+
+Spr2020_Exp_Pretest_4$HD_Disability[Spr2020_Exp_Pretest_4$HD_Disability == "Yes"] <- "1"
+Spr2020_Exp_Pretest_4$HD_Disability[Spr2020_Exp_Pretest_4$HD_Disability == "No"] <- "2"
+Spr2020_Exp_Pretest_4$HD_Disability[Spr2020_Exp_Pretest_4$HD_Disability == "Not sure"] <- "3"
+
+Spr2020_Exp_Pretest_4$HD_Identify[Spr2020_Exp_Pretest_4$HD_Identify == "Learning difference"] <- "1"
+Spr2020_Exp_Pretest_4$HD_Identify[Spr2020_Exp_Pretest_4$HD_Identify == "Learning disability. If so, please state what kind:"] <- "2"
+Spr2020_Exp_Pretest_4$HD_Identify[Spr2020_Exp_Pretest_4$HD_Identify == "Physical disability. If so, please state what kind:"] <- "3"
+Spr2020_Exp_Pretest_4$HD_Identify[Spr2020_Exp_Pretest_4$HD_Identify == "Physical condition that impacts my academics. Please state:"] <- "4"
+Spr2020_Exp_Pretest_4$HD_Identify[Spr2020_Exp_Pretest_4$HD_Identify == "Deaf / Serious difficulty hearing, even with hearing aid"] <- "5"
+Spr2020_Exp_Pretest_4$HD_Identify[Spr2020_Exp_Pretest_4$HD_Identify == "Blind / Serious difficulty seeing, even with glasses"] <- "6"
+Spr2020_Exp_Pretest_4$HD_Identify[Spr2020_Exp_Pretest_4$HD_Identify == "Mental health condition that impacts my academics. Please state:"] <- "7"
+Spr2020_Exp_Pretest_4$HD_Identify[Spr2020_Exp_Pretest_4$HD_Identify == "Medical health condition that impacts my academics. Please state:"] <- "8"
+Spr2020_Exp_Pretest_4$HD_Identify[Spr2020_Exp_Pretest_4$HD_Identify == "Other. Please state:"] <- "9"
+Spr2020_Exp_Pretest_4$HD_Identify[Spr2020_Exp_Pretest_4$HD_Identify == "None of the above"] <- "10"
+Spr2020_Exp_Pretest_4$HD_Identify[Spr2020_Exp_Pretest_4$HD_Identify == "Not sure"] <- "11"
+
+Spr2020_Exp_Pretest_4$HD_HealthPlan[Spr2020_Exp_Pretest_4$HD_HealthPlan == "Yes"] <- "1"
+Spr2020_Exp_Pretest_4$HD_HealthPlan[Spr2020_Exp_Pretest_4$HD_HealthPlan == "No"] <- "2"
+Spr2020_Exp_Pretest_4$HD_HealthPlan[Spr2020_Exp_Pretest_4$HD_HealthPlan == "Not sure"] <- "3"
+
+Spr2020_Exp_Pretest_4$HD_Insurance[Spr2020_Exp_Pretest_4$HD_Insurance == "Student health insurance I purchased through Cal State East Bay"] <- "1"
+Spr2020_Exp_Pretest_4$HD_Insurance[Spr2020_Exp_Pretest_4$HD_Insurance == "Plan through my parents"] <- "2"
+Spr2020_Exp_Pretest_4$HD_Insurance[Spr2020_Exp_Pretest_4$HD_Insurance == "Plan through my employer"] <- "3"
+Spr2020_Exp_Pretest_4$HD_Insurance[Spr2020_Exp_Pretest_4$HD_Insurance == "Plan through my spouse's employer"] <- "4"
+Spr2020_Exp_Pretest_4$HD_Insurance[Spr2020_Exp_Pretest_4$HD_Insurance == "Plan I purchased myself through an insurance company or state or federal marketplace"] <- "5"
+Spr2020_Exp_Pretest_4$HD_Insurance[Spr2020_Exp_Pretest_4$HD_Insurance == "Medicare"] <- "6"
+Spr2020_Exp_Pretest_4$HD_Insurance[Spr2020_Exp_Pretest_4$HD_Insurance == "Medicaid"] <- "7"
+Spr2020_Exp_Pretest_4$HD_Insurance[Spr2020_Exp_Pretest_4$HD_Insurance == "Veteran's Administration / Military"] <- "8"
+Spr2020_Exp_Pretest_4$HD_Insurance[Spr2020_Exp_Pretest_4$HD_Insurance == "Somewhere else"] <- "9"
+Spr2020_Exp_Pretest_4$HD_Insurance[Spr2020_Exp_Pretest_4$HD_Insurance == "Not sure"] <- "10"
+
+```
+
+```{r}
+library(visdat)
+vis_miss(Spr2020_Exp_Pretest_4)
+```
+
+```{r}
+visdat_a <- subset(Spr2020_Exp_Pretest_4, select = SD_BeenDiscriminated:HD_Attentive)
+visdat_b <- subset(Spr2020_Exp_Pretest_4, select = WU_First:SD_Discrimination)
+vis_miss(visdat_a)
+```
+
+
+
+```{r}
+visdat_a$SD_BeenDiscriminated[is.na(visdat_a$SD_BeenDiscriminated)] <- 0
+visdat_a$SD_13_NegativeSlur[is.na(visdat_a$SD_13_NegativeSlur)] <- 0
+visdat_a$SD_13_NegativeAssumption[is.na(visdat_a$SD_13_NegativeAssumption)] <- 0
+visdat_a$SD_13_AfraidOfYou[is.na(visdat_a$SD_13_AfraidOfYou)] <- 0
+visdat_a$SD_LastTimeDiscriminated[is.na(visdat_a$SD_LastTimeDiscriminated)] <- 0
+visdat_a$SD_DiscriminatedLifetime[is.na(visdat_a$SD_DiscriminatedLifetime)] <- 0
+
+visdat_a$GD_NotBothParents[is.na(visdat_a$GD_NotBothParents)] <- 0
+
+visdat_a$GD_HoursWorked[is.na(visdat_a$GD_HoursWorked)] <- 0
+
+visdat_a$HD_Weight <- as.numeric(as.character(visdat_a$HD_Weight, na.rm=TRUE))
+visdat_a$HD_Weight[is.na(visdat_a$HD_Weight)]<-mean(visdat_a$HD_Weight,na.rm=TRUE)
+
+visdat_a$HD_Identify[is.na(visdat_a$HD_Identify)] <- "10"
+
+visdat_a$HD_Insurance[is.na(visdat_a$HD_Insurance)] <- 0
+
+visdat_a$GD_FathersEdu[is.na(visdat_a$GD_FathersEdu)] <- 0
+visdat_a$GD_MothersEdu[is.na(visdat_a$GD_MothersEdu)] <- 0
+
+visdat_a$GD_MaritalAt16[is.na(visdat_a$GD_MaritalAt16)] <- "8"
+
+visdat_a$HD_HealthPlan[is.na(visdat_a$HD_HealthPlan)] <- "3"
+
+
+
+vis_miss(visdat_a)
+```
+
+```{r}
+visdat_b[is.na(visdat_b)] = "0"
+vis_miss(visdat_b)
+```
+
+```{r}
+Spr2020_Exp_Pretest_5 <- cbind(visdat_b,visdat_a)
+Spr2020_Exp_Pretest_5
+```
+
+```{r}
+int_a <- subset(Spr2020_Exp_Pretest_5, select = WU_First:WU_Class)
+int_b <- subset(Spr2020_Exp_Pretest_5, select = WU_BeMyself:AU_10_NonVerbal)
+int_c <- subset(Spr2020_Exp_Pretest_5, select = CCE_TempIncreasing:CCE_ClimateChangeOpinion)
+int_d <- subset(Spr2020_Exp_Pretest_5, select = CCE_Concerned:CCE_OthersConcerned)
+int_e <- subset(Spr2020_Exp_Pretest_5, select = CCE_AffectHealth:CCE_ViewOnEffects)
+int_f <- subset(Spr2020_Exp_Pretest_5, select = DV_JoinOrg:SD_8_GayExclude)
+int_g <- subset(Spr2020_Exp_Pretest_5, select = SD_ConsiderYourself)
+int_h <- subset(Spr2020_Exp_Pretest_5, select = SD_Discrimination)
+int_i <- subset(Spr2020_Exp_Pretest_5, select = SD_BeenDiscriminated:GD_HoursWorked)
+int_j <- subset(Spr2020_Exp_Pretest_5, select = HD_PhysicalHealth:HD_MentalHealth)
+int_k <- subset(Spr2020_Exp_Pretest_5, select = HD_Height:HD_Attentive)
+```
+
+```{r}
+int_b <- sapply(int_b, as.numeric)
+int_d <- sapply(int_d, as.numeric)
+int_f <- sapply(int_f, as.numeric)
+int_h <- sapply(int_h, as.numeric)
+int_j <- sapply(int_j, as.numeric)
+```
+
+```{r}
+Spr2020_Exp_Pretest_6 <- cbind(int_a, int_b, int_c, int_d, int_e, int_f, int_g, int_h, int_i, int_j, int_k)
+```
