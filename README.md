@@ -8,6 +8,7 @@ Analysis of Empathy Levels with Likert Survey Data using R
 * [Screenshots](#screenshots)
 * [Usage](#usage)
 * [Project Status](#project-status)
+* [Conclusion](#conclusion)
 * [Acknowledgements](#acknowledgements)
 
 
@@ -121,6 +122,13 @@ get_anova_table(BS_anovatest_Spr2020)
 ## Project Status
 Project is: No longer being worked on.
 - Project has been completed and turned into to Professor Smith.  An official scholarly report is under construction.
+
+## Conclusion
+Check docx's for final results.
+- Descriptive Statistics
+- Paired T-Tests
+  - Same Class (pretest vs posttest)
+  - Combined Classes (Experimental vs Control)
 
 
 ## Acknowledgements
