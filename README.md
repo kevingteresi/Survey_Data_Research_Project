@@ -98,10 +98,22 @@ get_anova_table(BS_anovatest_Spr2020)
 ## Screenshots
 
 ![NAs](./NAs.png)
-![Distribution](C:\Users\kevin\OneDrive\Pictures\distribution)
-![Paired T-Test](C:\Users\kevin\OneDrive\Pictures\Paired T-Test)
-![countplot](C:\Users\kevin\OneDrive\Pictures\countplot)
-![ANOVA](C:\Users\kevin\OneDrive\Pictures\ANOVA)
+- Visdat package to show how many NA's were remaining per column.  Super useful for cleaning data.
+
+![Distribution](./distribution.png)
+- Example of distribution amongst one of the three scales of empathy means.  All of the distributions ended up mostly normal, and we were able to run inferential statistics from there.
+
+![Paired T-Test](./Paired T-Test.png)
+- Example Paired T-Test amongst one of the three scales of empathy (check documents for full definitions).  P-Value below .05 means that there was a true difference in means not equal to zero (for the Spring 2020 experimental group).  Their empathy level, in this category, had gone up by a mean of 0.3316 (out of 7).
+
+![countplot](./countplot.png)
+- Count plot for response for 'NegativeAssumption' Variable: "Someone made negative assumptions or insensitive or offensive comments about you."
+1. Yes
+2. No
+3. Not Sure
+
+![ANOVA](./ANOVA.png)
+- Check for normality when doing a Mixed-Level ANOVA, comparing Sex, Group (experimental vs control), and their interaction on the effect on a change in empathy levels.
 
 
 ## Project Status
