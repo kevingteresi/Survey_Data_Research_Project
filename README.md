@@ -20,6 +20,8 @@ Analysis of Empathy Levels with Likert Survey Data using R
 
 -The reason that Kenneth and I undertook this project was that we wanted to have a project that demonstrated what we had learned in our time at CSUEB in terms of statistics and using statistical analysis software.  At the same time, I personally took this project because I hope to have a career in statistics that has some kind of benefit for society.  I believe in empathy and having a culture of empathy, so if our studies can improve a teacher's ability to improve empathy, I would consider our efforts fruitful.
 
+- Check ExampleQuestionaire and CodeSheets for examples of questions and variable names that were given to us.
+
 
 ## Technologies Used
 - 1. Excel (To do some quick edits on the datasets before importing the data into R)
